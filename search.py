@@ -220,21 +220,18 @@ def aStarSearch(problem, heuristic=nullHeuristic):
   "Search the node that has the lowest combined cost and heuristic first."
   "*** my CODE  ***"
   cost = lambda apath: problem.getCostOfActions(x[1] for x in apath) + heuristic(aPath[len(aPath)-1][0], problem)
-  fringe = util.PriorityQueueWithFunction(cost)
   explored = []
+  fringe = util.PriorityQueueWithFunction(cost)
   fringe.push([(problem.getStartState(), "Stop", 0)])
   while not fringe.isEmpty():
-      # print ("fringe: ", fringe.heap)
       path = fringe.pop()
       s = path[len(path) - 1]
       s = s[0]
       if problem.isGoalState(s):
-          # print "FOUND SOLUTION: ", [x[1] for x in path]
           return [x[1] for x in path][1:]
 
       if s not in explored:
           explored.append(s)  # append the state to explored
-          # print "EXPLORING: ", s
           for successor in problem.getSuccessors(s):
               # print "SUCCESSOR: ", successor
               if successor[0] not in explored:
